@@ -63,7 +63,7 @@ services:
   n8n:
     <<: *shared
     ports:
-      - 80:5678
+      - 5678:80
 
   n8n-worker:
     <<: *shared
