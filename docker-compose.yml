@@ -31,6 +31,17 @@ x-shared: &shared
       condition: service_healthy
 
 services:
+  n8n:
+    <<: *shared
+    ports:
+      - 5678:5678
+
+  n8n-worker:
+    <<: *shared
+    command: worker
+    depends_on:
+      - n8n
+      
   postgres:
     image: postgres:16
     restart: always
@@ -59,14 +70,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-
-  n8n:
-    <<: *shared
-    ports:
-      - 443:5678
-
-  n8n-worker:
-    <<: *shared
-    command: worker
-    depends_on:
-      - n8n
